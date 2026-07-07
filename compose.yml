@@ -11,10 +11,10 @@ services:
     volumes:
       - registration_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "app", "-papp"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uapp", "-papp"]
       interval: 5s
       timeout: 5s
-      retries: 5
+      retries: 15
 
 volumes:
   registration_data:

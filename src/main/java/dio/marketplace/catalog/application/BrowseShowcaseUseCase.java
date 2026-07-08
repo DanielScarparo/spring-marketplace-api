@@ -1,13 +1,11 @@
 package dio.marketplace.catalog.application;
 
 import dio.marketplace.catalog.application.dto.EventOutput;
-import dio.marketplace.catalog.domain.Event;
 import dio.marketplace.catalog.domain.EventRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-
-import java.util.EventObject;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -23,6 +21,7 @@ public class BrowseShowcaseUseCase {
         this.eventEnricher = eventEnricher;
     }
 
+    @Cacheable(value = "showcase", unless = "#result.isEmpty()")
     public List<EventOutput> execute(){
         var futures = eventRepository.findAll().stream().map(eventEnricher::enrich).toList();
 

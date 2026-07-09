@@ -1,7 +1,7 @@
 package dio.marketplace.catalog.infrastructure.event;
 
 import dio.marketplace.catalog.infrastructure.persistence.entity.EventMetadata;
-import dio.marketplace.common.infrastructure.event.dto.EventUpdate;
+import dio.marketplace.common.infrastructure.event.dto.EventUpdated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
@@ -23,7 +23,7 @@ public class EventMetadataEventListener extends AbstractMongoEventListener<Event
     @Override
     public void onAfterSave(AfterSaveEvent<EventMetadata> event) {
         logger.info("Event metadata sava via onAfterSave {}", event.getDocument());
-        this.publisher.publishEvent(EventUpdate.from(event.getSource()));
+        this.publisher.publishEvent(EventUpdated.from(event.getSource()));
     }
 
     @Override

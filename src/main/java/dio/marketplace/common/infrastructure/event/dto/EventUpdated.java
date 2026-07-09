@@ -7,14 +7,14 @@ import dio.marketplace.catalog.infrastructure.persistence.entity.EventMetadata;
 import java.math.BigDecimal;
 import java.util.List;
 
-public record EventUpdate(String id, List<Sector> sectors) {
+public record EventUpdated(String id, List<Sector> sectors) {
 
-    public static EventUpdate from(EventMetadata event) {
+    public static EventUpdated from(EventMetadata event) {
         List<Sector> sectors = event.getSectors().stream()
                 .map(s -> Sector.from(s, event.getSeats()))
                 .toList();
 
-        return new EventUpdate(event.getId().toString(), sectors);
+        return new EventUpdated(event.getId().toString(), sectors);
     }
 
     public record Sector(String id, BigDecimal price, List<Seat> seats) {
